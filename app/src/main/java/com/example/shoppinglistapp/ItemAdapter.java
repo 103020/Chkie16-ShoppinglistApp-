@@ -17,6 +17,7 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ViewHolder> {
 
     int requestCode;
     private List<RecyclerViewContact> Dataset;
+    private Context context;
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
         public TextView nameTextView;
@@ -31,13 +32,14 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ViewHolder> {
         }
     }
 
-    public ItemAdapter(List<RecyclerViewContact> Dataset) {
+    public ItemAdapter(List<RecyclerViewContact> Dataset, Context context) {
         this.Dataset = Dataset;
+        this.context = context;
     }
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, final int viewType) {
-        Context context = parent.getContext();
+        final Context context = parent.getContext();
         LayoutInflater inflater = LayoutInflater.from(context);
         View view = inflater.inflate(R.layout.item_recyclerview_textview, parent, false);
         TextView nameTextView = view.findViewById(R.id.item_name);
@@ -70,15 +72,18 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ViewHolder> {
         vh.nameTextView.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View v) {
-                MainActivity.editItem(v,vh.nameTextView.getText().toString(),vh.descriptionTextView.getText().toString());
-
+                if (context instanceof MainActivity) {
+                    ((MainActivity)context).editItem(v, Dataset.get(vh.getAdapterPosition()));
+                }
                 return true;
             }
         });
         vh.descriptionTextView.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View v) {
-                MainActivity.editItem(v,vh.nameTextView.getText().toString(),vh.descriptionTextView.getText().toString());
+                if (context instanceof MainActivity) {
+                    ((MainActivity)context).editItem(v, Dataset.get(vh.getAdapterPosition()));
+                }
                 return true;
             }
         });

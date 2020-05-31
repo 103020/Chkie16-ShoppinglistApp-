@@ -40,25 +40,10 @@ public class MainActivity extends AppCompatActivity {
         //creates test data for the list
         //contacts.addAll(RecyclerViewContact.createContactsList(20);
 
-        itemAdapter = new ItemAdapter(contacts);
+        itemAdapter = new ItemAdapter(contacts, this);
         recyclerView.setAdapter(itemAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        /*FloatingActionButton fab = findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                //Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG).setAction("Action", null).show();
-
-
-
-                int listSize = contacts.size();
-                RecyclerViewContact tempContact = new RecyclerViewContact("Item" + listSize, "Description " + listSize, 1);
-                contacts.add(tempContact);
-                addToDatabase(tempContact);
-                itemAdapter.notifyItemChanged(listSize);
-            }
-        });*/
     }
 
     @Override
@@ -107,12 +92,12 @@ public class MainActivity extends AppCompatActivity {
             }
         } else if (requestCode == this.editRequestCode) {
             if (resultCode == RESULT_OK) {
-
+                System.out.println("check edit item");
             }
         }
     }
 
-    public void editItem(View view, String name, String description){
+    public void editItem(View view, RecyclerViewContact rvc){
         Intent intent = new Intent(this, EditItemRecyclerViewActivity.class);
         editRequestCode = 11;
         startActivityForResult(intent,editRequestCode);
