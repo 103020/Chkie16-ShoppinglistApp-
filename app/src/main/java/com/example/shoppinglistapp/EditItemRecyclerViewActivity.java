@@ -16,7 +16,7 @@ public class EditItemRecyclerViewActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.edit_item_recyclerview_fragment);
+        setContentView(R.layout.item_recyclerview_fragment);
 
         getSupportActionBar().setTitle("Edit Item");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);

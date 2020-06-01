@@ -15,15 +15,12 @@ import java.util.List;
 
 public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ViewHolder> {
 
-    int requestCode;
     private List<RecyclerViewContact> Dataset;
-    private Context context;
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
         public TextView nameTextView;
         public TextView descriptionTextView;
         public View view;
-        public TextView textView;
         public ViewHolder(View frameLayout,TextView name,TextView description) {
             super(frameLayout);
             this.view = frameLayout;
@@ -32,9 +29,8 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ViewHolder> {
         }
     }
 
-    public ItemAdapter(List<RecyclerViewContact> Dataset, Context context) {
+    public ItemAdapter(List<RecyclerViewContact> Dataset) {
         this.Dataset = Dataset;
-        this.context = context;
     }
 
     @Override
@@ -48,48 +44,47 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ViewHolder> {
         vh.nameTextView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (vh.nameTextView.getPaintFlags() != 16) {
-                    vh.nameTextView.setPaintFlags(Paint.STRIKE_THRU_TEXT_FLAG);
-                    vh.descriptionTextView.setPaintFlags(Paint.STRIKE_THRU_TEXT_FLAG);
-                } else {
-                    vh.nameTextView.setPaintFlags( vh.nameTextView.getPaintFlags() & (~ Paint.STRIKE_THRU_TEXT_FLAG));
-                    vh.descriptionTextView.setPaintFlags( vh.descriptionTextView.getPaintFlags() & (~ Paint.STRIKE_THRU_TEXT_FLAG));
+                if (context instanceof MainActivity) {
+                    //((MainActivity)context).editItem(v, Dataset.get(vh.getAdapterPosition()));
+                    ((MainActivity)context).onItemSelected(vh.getAdapterPosition());
                 }
             }
         });
         vh.descriptionTextView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (vh.nameTextView.getPaintFlags() != 16) {
-                    vh.nameTextView.setPaintFlags(Paint.STRIKE_THRU_TEXT_FLAG);
-                    vh.descriptionTextView.setPaintFlags(Paint.STRIKE_THRU_TEXT_FLAG);
-                } else {
-                    vh.nameTextView.setPaintFlags( vh.nameTextView.getPaintFlags() & (~ Paint.STRIKE_THRU_TEXT_FLAG));
-                    vh.descriptionTextView.setPaintFlags( vh.descriptionTextView.getPaintFlags() & (~ Paint.STRIKE_THRU_TEXT_FLAG));
+                if (context instanceof MainActivity) {
+                    //((MainActivity)context).editItem(v, Dataset.get(vh.getAdapterPosition()));
+                    ((MainActivity)context).onItemSelected(vh.getAdapterPosition());
                 }
             }
         });
         vh.nameTextView.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View v) {
-                if (context instanceof MainActivity) {
-                    ((MainActivity)context).editItem(v, Dataset.get(vh.getAdapterPosition()));
-                }
+                setStrikeThru(vh);
                 return true;
             }
         });
         vh.descriptionTextView.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View v) {
-                if (context instanceof MainActivity) {
-                    ((MainActivity)context).editItem(v, Dataset.get(vh.getAdapterPosition()));
-                }
+                setStrikeThru(vh);
                 return true;
             }
         });
         return vh;
     }
 
+    private void setStrikeThru(ViewHolder vh) {
+        if (vh.nameTextView.getPaintFlags() != 16) {
+            vh.nameTextView.setPaintFlags(Paint.STRIKE_THRU_TEXT_FLAG);
+            vh.descriptionTextView.setPaintFlags(Paint.STRIKE_THRU_TEXT_FLAG);
+        } else {
+            vh.nameTextView.setPaintFlags( vh.nameTextView.getPaintFlags() & (~ Paint.STRIKE_THRU_TEXT_FLAG));
+            vh.descriptionTextView.setPaintFlags( vh.descriptionTextView.getPaintFlags() & (~ Paint.STRIKE_THRU_TEXT_FLAG));
+        }
+    }
 
 
     @Override

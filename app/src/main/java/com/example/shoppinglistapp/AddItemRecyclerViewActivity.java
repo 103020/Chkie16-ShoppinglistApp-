@@ -16,7 +16,7 @@ public class AddItemRecyclerViewActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.add_item_recyclerview_fragment);
+        setContentView(R.layout.add_item_recyclerview);
 
         getSupportActionBar().setTitle("Add Item");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -25,7 +25,6 @@ public class AddItemRecyclerViewActivity extends AppCompatActivity {
         editTextAmount = (EditText)findViewById(R.id.editTextItemAmountAdd);
         editTextName = (EditText)findViewById(R.id.editTextItemNameAdd);
         editTextDescription = (EditText)findViewById(R.id.editTextItemDescriptionAdd);
-
     }
     public void sendData(View view){
         Intent data = new Intent();
